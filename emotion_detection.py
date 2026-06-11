@@ -2,9 +2,6 @@ import requests
 import json
 
 def emotion_detector(text_to_analyse):
-    """
-    Analyze emotion using Watson NLP API.
-    """
 
     url = (
         "https://sn-watson-emotion.labs.skills.network/"
@@ -26,4 +23,12 @@ def emotion_detector(text_to_analyse):
 
     formatted_response = json.loads(response.text)
 
-    return formatted_response
+    emotions = formatted_response["emotionPredictions"][0]["emotion"]
+
+    return {
+        "anger": emotions["anger"],
+        "disgust": emotions["disgust"],
+        "fear": emotions["fear"],
+        "joy": emotions["joy"],
+        "sadness": emotions["sadness"]
+    }
